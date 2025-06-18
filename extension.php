@@ -45,6 +45,10 @@ class ArticleSummaryExtension extends Minz_Extension
       FreshRSS_Context::$user_conf->oai_model = Minz_Request::param('oai_model', '');
       FreshRSS_Context::$user_conf->oai_prompt = Minz_Request::param('oai_prompt', '');
       FreshRSS_Context::$user_conf->oai_provider = Minz_Request::param('oai_provider', '');
+      FreshRSS_Context::$user_conf->gemini_url = Minz_Request::param('gemini_url', '');
+      FreshRSS_Context::$user_conf->gemini_key = Minz_Request::param('gemini_key', '');
+      FreshRSS_Context::$user_conf->gemini_model = Minz_Request::param('gemini_model', '');
+      FreshRSS_Context::$user_conf->gemini_prompt = Minz_Request::param('gemini_prompt', '');
       FreshRSS_Context::$user_conf->save();
     }
   }
