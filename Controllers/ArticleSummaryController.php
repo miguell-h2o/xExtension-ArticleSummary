@@ -12,7 +12,14 @@ class FreshExtension_ArticleSummary_Controller extends Minz_ActionController
     $oai_key = FreshRSS_Context::$user_conf->oai_key;
     $oai_model = FreshRSS_Context::$user_conf->oai_model;
     $oai_prompt = FreshRSS_Context::$user_conf->oai_prompt;
-    $oai_provider = FreshRSS_Context::$user_conf->oai_provider;
+    $oai_provider = FreshRSS_Context::$user_conf->oai_provider ?: 'openai'; // Default to OpenAI
+
+    // --- Novas variáveis para Gemini (carregadas da configuração do usuário) ---
+    $gemini_url = FreshRSS_Context::$user_conf->gemini_url;
+    $gemini_key = FreshRSS_Context::$user_conf->gemini_key;
+    $gemini_model = FreshRSS_Context::$user_conf->gemini_model;
+    $gemini_prompt = FreshRSS_Context::$user_conf->gemini_prompt;
+    // --- Fim das novas variáveis ---
 
     if (
       $this->isEmpty($oai_url)
