@@ -12,8 +12,9 @@ $oai_provider = FreshRSS_Context::$user_conf->oai_provider ?: 'openai'; // Defau
   <select name="oai_provider">
       <option value="openai" <?php echo ($oai_provider == 'openai' ? 'selected' : ''); ?>>OpenAI</option>
       <option value="ollama" <?php echo ($oai_provider == 'ollama' ? 'selected' : ''); ?>>Ollama</option>
-   </select>
- 
+      <option value="gemini" <?php echo ($oai_provider == 'gemini' ? 'selected' : ''); ?>>Gemini</option>
+  </select>
+  
  <div id="common_config">
     <label for="oai_url">Base URL (http(s)://oai.com/) without 'v1'</label>
     <input type="text" name="oai_url" id="oai_url" value="<?php echo $oai_url; ?>">
@@ -24,6 +25,16 @@ $oai_provider = FreshRSS_Context::$user_conf->oai_provider ?: 'openai'; // Defau
     <label for="oai_prompt">Prompt (add before content)</label>
     <textarea name="oai_prompt" id="oai_prompt"><?php echo $oai_prompt; ?></textarea>
   </div>
+<div id="gemini_config" style="display: none;"> <h2>Gemini Configuration</h2>
+    <label for="gemini_url">Gemini Base URL (e.g., https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent)</label>
+    <input type="text" name="gemini_url" id="gemini_url" value="<?php echo FreshRSS_Context::$user_conf->gemini_url; ?>">
+    <label for="gemini_key">API Key</label>
+    <input type="password" name="gemini_key" id="gemini_key" value="<?php echo FreshRSS_Context::$user_conf->gemini_key; ?>">
+    <label for="gemini_model">Model Name</label>
+    <input type="text" name="gemini_model" id="gemini_model" value="<?php echo FreshRSS_Context::$user_conf->gemini_model; ?>">
+    <label for="gemini_prompt">Prompt (add before content)</label>
+    <textarea name="gemini_prompt" id="gemini_prompt"><?php echo FreshRSS_Context::$user_conf->gemini_prompt; ?></textarea>
+</div>
   <hr />
   <button type="submit">Save</button>
 </form>
