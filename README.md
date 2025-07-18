@@ -1,16 +1,18 @@
 # FreshRSS Article Summary Extension
 
-- [中文 README](README_zh.md)
-- [English README](README.md)
+This version was improved by simplifiying the LLM configuration forms, fix issues, simplify parts of the code, translated to english and improved dark mode.
 
-This extension for FreshRSS allows users to generate summaries of articles using a language model API that conforms to the OpenAI API specification. The extension provides a user-friendly interface to configure the API endpoint, API key, model name, and a prompt to be added before the content. When activated, it adds a "summarize" button to each article, which, when clicked, sends the article content to the configured API for summarization.
+This FreshRSS improved extension enables users to effortlessly generate concise summaries of articles by leveraging a large language model (LLM) API compatible with the OpenAI API specification.
 
-## Features
+#### Key Features
 
-- **API Configuration**: Easily configure the base URL, API key, model name, and prompt through a simple form.
-- **Summarize Button**: Adds a "summarize" button to each article, allowing users to generate a summary with a single click.
-- **Markdown Support**: Converts HTML content to Markdown before sending it to the API, ensuring compatibility with various language models.
-- **Error Handling**: Provides feedback in case of API errors or incomplete configurations.
+- **Seamless Integration:** Easily configure the API endpoint, API key, chosen model, and a custom prompt directly within a user-friendly interface.
+
+- **Convenient Summarization:** A "Summarize" button is added to each article, allowing users to quickly send content to the configured LLM API for automated summarization.
+
+- **Customizable Experience:** Tailor the summarization process by setting prompts or choosing specific models to fit your preferred summary style or API provider.
+
+With this extension, FreshRSS users can streamline their reading workflow by generating article summaries on demand, directly from the feed interface.
 
 ## Installation
 
@@ -18,18 +20,26 @@ This extension for FreshRSS allows users to generate summaries of articles using
 2. **Enable the Extension**: Go to the FreshRSS extensions management page and enable the "ArticleSummary" extension.
 3. **Configure the Extension**: Navigate to the extension's configuration page to set up your API details.
 
-## Configuration
+## Configuration for Gemini Free Tier
 
-To configure the extension, follow these steps:
+**Choose AI Provier:** Gemini
 
-1. **Base URL**: Enter the base URL of your language model API (e.g., `https://api.openai.com/`). Note that the URL should not include the version path (e.g., `/v1`).
-2. **API Key**: Provide your API key for authentication.
-3. **Model Name**: Specify the model name you wish to use for summarization (e.g., `gpt-3.5-turbo`).
-4. **Prompt**: Add a prompt that will be included before the article content when sending the request to the API.
+**URL:** https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent
+
+**API Key:** [Google AIStudio](https://aistudio.google.com/apikey)
+
+**Model Name:** gemini-2.0-flash-lite
+
+**Prompt:** 
+You are an expert summarizer. Create a concise summary of the following text in paragraph format only. Write in clear, accessible language. STRICT LIMIT: Maximum 200 words. Include only information from the original text. Do not use bullet points, numbered lists, headers, labels, or any formatting. Do not include explanations, guidelines, or instructions in your response. Write only the summary as continuous prose. Keep it brief and focused on the most essential points. Text:
+
+Done!
+
+Feel free to change the url, model name and prompt to your needs.
 
 ## Usage
 
-Once configured, the extension will automatically add a "summarize" button to each article. Clicking this button will:
+Once configured and enabled, the extension will automatically add a "Summarize" button to each article. Clicking this button will:
 
 1. Send the article content to the configured API.
 2. Display the generated summary below the button.
@@ -51,10 +61,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 - Thanks to the FreshRSS community for providing a robust platform for RSS management.
 - Inspired by the need for efficient article summarization tools.
-
-## History
-- Version: 0.1.1 (2024-11-20)
-  > **Bug Fix**: Prevented the summary button from affecting the title list display. Previously, the 'entry_before_display' hook was causing the summary button to be added to the title list, leading to display issues. Now, the button initially has no text and adds text only when the article is clicked to be displayed.
+- This is the original creator of this extension: [LiangWei88](https://github.com/LiangWei88/xExtension-ArticleSummary)
+- This is the original developer that initially implemented Gemini: [Davidalben](https://github.com/davidalben/xExtension-ArticleSummary)
 
 ---
 
