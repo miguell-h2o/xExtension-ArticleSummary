@@ -1,40 +1,58 @@
 <?php
-$oai_url = FreshRSS_Context::$user_conf->oai_url;
-$oai_key = FreshRSS_Context::$user_conf->oai_key;
-$oai_model = FreshRSS_Context::$user_conf->oai_model;
-$oai_prompt = FreshRSS_Context::$user_conf->oai_prompt;
-$oai_provider = FreshRSS_Context::$user_conf->oai_provider ?: 'openai'; // Default to OpenAI
+$provider = FreshRSS_Context::$user_conf->oai_provider ?: 'openai'; // Default to OpenAI
+
+// Carrega as configurações salvas para o provedor selecionado
+$url = '';
+$key = '';
+$model = '';
+$prompt = '';
+
+if ($provider === 'openai') {
+    $url = FreshRSS_Context::$user_conf->openai_url;
+    $key = FreshRSS_Context::$user_conf->openai_key;
+    $model = FreshRSS_Context::$user_conf->openai_model;
+    $prompt = FreshRSS_Context::$user_conf->openai_prompt;
+} elseif ($provider === 'ollama') {
+    $url = FreshRSS_Context::$user_conf->ollama_url;
+    $key = FreshRSS_Context::$user_conf->ollama_key;
+    $model = FreshRSS_Context::$user_conf->ollama_model;
+    $prompt = FreshRSS_Context::$user_conf->ollama_prompt;
+} elseif ($provider === 'gemini') {
+    $url = FreshRSS_Context::$user_conf->gemini_url;
+    $key = FreshRSS_Context::$user_conf->gemini_key;
+    $model = FreshRSS_Context::$user_conf->gemini_model;
+    $prompt = FreshRSS_Context::$user_conf->gemini_prompt;
+}
 ?>
 
 <form action="<?php echo _url('extension', 'configure', 'e', urlencode($this->getName())); ?>" method="post">
   <input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+  
   <label for="oai_provider">Choose AI Provider</label>
-  <select name="oai_provider">
-      <option value="openai" <?php echo ($oai_provider == 'openai' ? 'selected' : ''); ?>>OpenAI</option>
-      <option value="ollama" <?php echo ($oai_provider == 'ollama' ? 'selected' : ''); ?>>Ollama</option>
-      <option value="gemini" <?php echo ($oai_provider == 'gemini' ? 'selected' : ''); ?>>Gemini</option>
+  <select name="oai_provider" id="oai_provider">
+      <option value="openai" <?php echo ($provider == 'openai' ? 'selected' : ''); ?>>OpenAI</option>
+      <option value="ollama" <?php echo ($provider == 'ollama' ? 'selected' : ''); ?>>Ollama</option>
+      <option value="gemini" <?php echo ($provider == 'gemini' ? 'selected' : ''); ?>>Gemini</option>
   </select>
   
- <div id="common_config">
-    <label for="oai_url">Base URL (http(s)://oai.com/) without 'v1'</label>
-    <input type="text" name="oai_url" id="oai_url" value="<?php echo $oai_url; ?>">
-    <label for="oai_key">API Key</label>
-    <input type="text" name="oai_key" id="oai_key" value="<?php echo $oai_key; ?>">
-    <label for="oai_model">Model Name</label>
-    <input type="text" name="oai_model" id="oai_model" value="<?php echo $oai_model; ?>">
-    <label for="oai_prompt">Prompt (add before content)</label>
-    <textarea name="oai_prompt" id="oai_prompt"><?php echo $oai_prompt; ?></textarea>
+  <div id="api_config">
+    <label for="api_url" id="url_label">URL</label>
+    <input type="text" name="api_url" id="api_url" value="<?php echo htmlspecialchars($url); ?>">
+    <small id="url_hint">API endpoint URL.</small>
+
+    <label for="api_key" id="key_label">API Key</label>
+    <input type="password" name="api_key" id="api_key" value="<?php echo htmlspecialchars($key); ?>">
+    <small id="key_hint">Your API key.</small>
+
+    <label for="api_model" id="model_label">Model Name</label>
+    <input type="text" name="api_model" id="api_model" value="<?php echo htmlspecialchars($model); ?>">
+    <small id="model_hint">The model to use for summarization.</small>
+
+    <label for="api_prompt" id="prompt_label">Prompt</label>
+    <textarea name="api_prompt" id="api_prompt"><?php echo htmlspecialchars($prompt); ?></textarea>
+    <small id="prompt_hint">The prompt to send to the model.</small>
   </div>
-<div id="gemini_config" style="display: none;"> <h2>Gemini Configuration</h2>
-    <label for="gemini_url">Gemini Base URL (e.g., https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent)</label>
-    <input type="text" name="gemini_url" id="gemini_url" value="<?php echo FreshRSS_Context::$user_conf->gemini_url; ?>">
-    <label for="gemini_key">API Key</label>
-    <input type="password" name="gemini_key" id="gemini_key" value="<?php echo FreshRSS_Context::$user_conf->gemini_key; ?>">
-    <label for="gemini_model">Model Name</label>
-    <input type="text" name="gemini_model" id="gemini_model" value="<?php echo FreshRSS_Context::$user_conf->gemini_model; ?>">
-    <label for="gemini_prompt">Prompt (add before content)</label>
-    <textarea name="gemini_prompt" id="gemini_prompt"><?php echo FreshRSS_Context::$user_conf->gemini_prompt; ?></textarea>
-</div>
+
   <hr />
   <button type="submit">Save</button>
 </form>
