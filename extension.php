@@ -29,7 +29,7 @@ class ArticleSummaryExtension extends Minz_Extension
 
     $entry->_content(
       '<div class="oai-summary-wrap">'
-      . '<button data-request="' . $url_summary . '" class="oai-summary-btn"></button>'
+      . '<button data-request="' . $url_summary . '" class="oai-summary-btn">Summarize Article</button>'
       . '<div class="oai-summary-content"></div>'
       . '</div>'
       . $entry->content()
@@ -40,16 +40,32 @@ class ArticleSummaryExtension extends Minz_Extension
   public function handleConfigureAction()
   {
     if (Minz_Request::isPost()) {
-      FreshRSS_Context::$user_conf->oai_url = Minz_Request::param('oai_url', '');
-      FreshRSS_Context::$user_conf->oai_key = Minz_Request::param('oai_key', '');
-      FreshRSS_Context::$user_conf->oai_model = Minz_Request::param('oai_model', '');
-      FreshRSS_Context::$user_conf->oai_prompt = Minz_Request::param('oai_prompt', '');
-      FreshRSS_Context::$user_conf->oai_provider = Minz_Request::param('oai_provider', '');
-      FreshRSS_Context::$user_conf->gemini_url = Minz_Request::param('gemini_url', '');
-      FreshRSS_Context::$user_conf->gemini_key = Minz_Request::param('gemini_key', '');
-      FreshRSS_Context::$user_conf->gemini_model = Minz_Request::param('gemini_model', '');
-      FreshRSS_Context::$user_conf->gemini_prompt = Minz_Request::param('gemini_prompt', '');
-      FreshRSS_Context::$user_conf->save();
+        $provider = Minz_Request::param('oai_provider', 'openai');
+        FreshRSS_Context::$user_conf->oai_provider = $provider;
+
+        $url = Minz_Request::param('api_url', '');
+        $key = Minz_Request::param('api_key', '');
+        $model = Minz_Request::param('api_model', '');
+        $prompt = Minz_Request::param('api_prompt', '');
+
+        if ($provider === 'openai') {
+            FreshRSS_Context::$user_conf->openai_url = $url;
+            FreshRSS_Context::$user_conf->openai_key = $key;
+            FreshRSS_Context::$user_conf->openai_model = $model;
+            FreshRSS_Context::$user_conf->openai_prompt = $prompt;
+        } elseif ($provider === 'ollama') {
+            FreshRSS_Context::$user_conf->ollama_url = $url;
+            FreshRSS_Context::$user_conf->ollama_key = $key;
+            FreshRSS_Context::$user_conf->ollama_model = $model;
+            FreshRSS_Context::$user_conf->ollama_prompt = $prompt;
+        } elseif ($provider === 'gemini') {
+            FreshRSS_Context::$user_conf->gemini_url = $url;
+            FreshRSS_Context::$user_conf->gemini_key = $key;
+            FreshRSS_Context::$user_conf->gemini_model = $model;
+            FreshRSS_Context::$user_conf->gemini_prompt = $prompt;
+        }
+
+        FreshRSS_Context::$user_conf->save();
     }
   }
 }
