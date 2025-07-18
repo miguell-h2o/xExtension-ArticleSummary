@@ -1,14 +1,49 @@
 .oai-summary-wrap {
-  
-  background: #f8f8f8;
-  padding: 1em;
-  margin-bottom: 2em;
-  border: 1px solid #888;
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    padding: 1.5em;
+    margin-bottom: 2em;
+    border: 1px solid #444;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .oai-summary-btn {
-  font-size: 1.2em;
-  margin-bottom: 0.5em;
+  font-size: 1.0em;
+  margin-bottom: 1em;
+  padding: 0.6em 1em;
+  border: none;
+  border-radius: 8px;
+  background-color: #383838;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.oai-summary-btn:hover {
+  background-color: #424242;
+}
+
+.oai-summary-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.oai-summary-content {
+    padding-top: 1.5em;
+    line-height: 1.6;
+}
+
+.oai-summary-content.error {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.loading {
+    font-style: italic;
+    color: #aaa;
+    text-align: center;
 }
 
 .oai-summary-content h1,
@@ -16,9 +51,57 @@
 .oai-summary-content h3,
 .oai-summary-content h4,
 .oai-summary-content h5,
-.oai-summary-content h6,
-.oai-summary-content p,
-.oai-summary-content div {
-  padding: 0;
-  margin: 0;
+.oai-summary-content h6 {
+    color: #00aaff;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #444;
+}
+
+.oai-summary-content p {
+    margin-bottom: 1em;
+}
+
+.oai-summary-content ul,
+.oai-summary-content ol {
+    padding-left: 2em;
+    margin-bottom: 1em;
+}
+
+.oai-summary-content li {
+    margin-bottom: 0.5em;
+}
+
+.oai-summary-content a {
+    color: #00aaff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.oai-summary-content a:hover {
+    color: #007acc;
+    text-decoration: underline;
+}
+
+.oai-summary-content code {
+    background-color: #1e1e1e;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.oai-summary-content pre {
+    background-color: #1e1e1e;
+    padding: 1em;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.oai-summary-content blockquote {
+    border-left: 4px solid #007acc;
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+    color: #ccc;
 }
